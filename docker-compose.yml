@@ -8,9 +8,15 @@ services:
     ports:
       - 8889:80
 
-  # auth:
-  #   restart: unless-stopped
-  #   image: "eo:build"
+  auth:
+    restart: unless-stopped
+    build: auth
+    ports:
+      # TODO: Flask config only binds to localhost, so this is not exposed properly.
+      - 5000:5000
+    volumes:
+      # TODO: This should be templated with env vars
+      - ./outpost_auth.ini:/eo-auth/outpost_auth.ini:ro
 
   # eo:
   #   restart: unless-stopped
